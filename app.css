@@ -2,9 +2,6 @@
 
 /* @import 'light-theme.css'; */
 
-
-/*  */
-
 * {
     box-sizing: border-box;
     font-family: sans-serif;
@@ -24,61 +21,6 @@ input.clean {
     background: none;
     border: none;
     width: 100%;
-}
-
-
-/* ---------------- GRID ROWS ----------------  */
-
-.grid-row {
-    width: 100%;
-    display: grid;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-    justify-content: space-between;
-}
-
-.grid-row.one {
-    grid-template-columns: 100%;
-}
-
-.grid-row.two {
-    grid-template-columns: calc(50% - 10px) calc(50% - 10px);
-}
-
-.grid-row.three {
-    grid-template-columns: calc(33% - 10px) calc(33% - 10px) calc(33% - 10px);
-}
-
-.grid-row.four {
-    grid-template-columns: calc(25% - 10px) calc(25% - 10px) calc(25% - 10px) calc(25% - 10px);
-}
-
-.grid-row.five {
-    grid-template-columns: calc(20% - 10px) calc(20% - 10px) calc(20% - 10px) calc(20% - 10px) calc(20% - 10px);
-}
-
-.grid-row.five {
-    grid-template-columns: calc(100%/6 - 10px) calc(100%/6 - 10px) calc(100%/6 - 10px) calc(100%/6 - 10px) calc(100%/6 - 10px) calc(100%/6 - 10px);
-}
-
-.grid-row-item {
-    text-align: center;
-    padding: 9px;
-    background: transparent;
-    border-radius: 3px;
-    position: relative;
-}
-
-.grid-row-item-label {
-    font-weight: bold;
-    position: absolute;
-    font-size: 12px;
-    padding: 0 5px;
-    top: -8px;
-}
-
-.grid-row-item.clickable:hover {
-    cursor: pointer;
 }
 
 
@@ -106,6 +48,16 @@ input[type=number].clean {
     min-width: 600px;
     padding: 30px;
     border-radius: 5px;
-    background: #EFEFEF33;
+    border: 1px solid #EFEFEF;
     margin: auto;
+}
+
+#timer {
+    font-size: 60px;
+    padding: 0 20px;
+}
+
+#speaker {
+    font-size: 40px;
+    line-height: 69px;
 }

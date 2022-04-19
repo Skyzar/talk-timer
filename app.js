@@ -1,21 +1,39 @@
 Vue.createApp({
     data() {
         return {
-            speakers: [],
+            speakers: [
+                "Keanu Reeves 0",
+                "Keanu Reeves 1",
+                "Keanu Reeves 2",
+                // "Keanu Reeves 3",
+                // "Keanu Reeves 4",
+                // "Keanu Reeves 5",
+                // "Keanu Reeves 6",
+                // "Keanu Reeves 7",
+                // "Keanu Reeves 8",
+                // "Keanu Reeves 9",
+                // "Keanu Reeves 10",
+                // "Keanu Reeves 11"
+            ],
+            active_speaker: '',
+            active_speaker_index: 0,
             running: false,
-            seconds_per_speaker: 120,
+            seconds_per_speaker: 3,
             new_speaker_name: '',
-            timer: 120,
-            timeMinutes: 0,
-            timeSeconds: 0,
-            verbose: false
+            timer: 3,
+            display_seconds: 0,
+            display_minutes: 0,
+            verbose: false,
+            interval: null
         }
     },
     created() {
         window.addEventListener('keydown', this.keydown_handler);
-    },
-    mounted() {
 
+        if (this.speakers.length > 0)
+            this.active_speaker = this.speakers[0]
+
+        this.update_display();
     },
     destroyed() {
         window.removeEventListener('keydown', this.keydown_handler);
@@ -26,7 +44,8 @@ Vue.createApp({
 
             const keys = {
                 space: ' ',
-                enter: 'Enter',
+                arrow_left: 'ArrowLeft',
+                arrow_right: 'ArrowRight',
                 escape: 'Escape',
                 o: 'o',
                 v: 'v'
@@ -37,8 +56,10 @@ Vue.createApp({
                     this.start_session();
                 else
                     this.pause_session();
-            else if (key_pressed === keys.enter)
-                this.skip_speaker();
+            else if (key_pressed === keys.arrow_left)
+                this.previous_speaker();
+            else if (key_pressed === keys.arrow_right)
+                this.next_speaker();
             else if (key_pressed === keys.escape)
                 this.end_session();
             else if (key_pressed === keys.o)
@@ -55,26 +76,70 @@ Vue.createApp({
             this.speakers.push(this.newSpeaker);
             this.newSpeaker = '';
         },
-        update_timer() {
-            this
+        next_second() {
+            this.timer -= 1;
+
+            if (this.timer <= 0)
+                this.next_speaker();
+
+            this.update_display();
         },
         start_session() {
+            console.log('starting');
+
             if (this.running)
                 return;
 
             this.running = true;
-            this.interval = setInterval(this.update_timer(), 1000);
+            this.interval = setInterval(this.next_second, 1000);
         },
         pause_session() {
+            if (!this.running)
+                return;
+
             this.running = false;
-            console.log('Session PAUSED');
+            clearInterval(this.interval);
         },
         end_session() {
-            console.log('Session ENDED');
+            this.pause_session();
+
+            this.timer = this.seconds_per_speaker;
+
+            this.active_speaker_index = 0;
+            this.active_speaker = this.speakers[this.active_speaker_index];
         },
-        skip_speaker() {
-            // go to the next speaker before timer hits 0
-            console.log('Speaker SKIPPED');
+        previous_speaker() {
+            if (this.active_speaker_index === 0)
+                return;
+            this.active_speaker_index -= 1;
+            this.active_speaker = this.speakers[this.active_speaker_index];
+
+            this.check_mid_interval();
+            this.update_display();
+        },
+        next_speaker() {
+            if (this.active_speaker_index === this.speakers.length - 1) {
+                this.end_session();
+                return;
+            }
+            this.active_speaker_index += 1;
+            this.active_speaker = this.speakers[this.active_speaker_index];
+
+            this.check_mid_interval();
+            this.update_display();
+        },
+        update_display() {
+            this.display_seconds = (this.timer % 60).toString().padStart(2, '0');
+            this.display_minutes = Math.floor(this.timer / 60).toString().padStart(2, '0');
+        },
+        check_mid_interval() {
+            // give the next speaker the full initial second instead of less
+            // when skipping to the next speaker mid-interval
+            if (this.running) {
+                this.pause_session();
+                this.timer = this.seconds_per_speaker;
+                this.start_session();
+            }
         },
         switch_mode() {
             console.log('Mode SWITCHED');

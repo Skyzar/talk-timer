@@ -16,22 +16,33 @@
 <body class="dark">
     <div id="app">
 
-        {{ timer }}
-
-        <!-- <div class="grid-row three">
-            <div class="grid-row-item">
-                <div class="grid-row-item-label">Add Person</div>
-                <input class="clean ta-right" type="text" @keyup.enter="addSpeaker" v-model.text="newSpeaker">
+        <div style="display: flex;">
+            <div id="timer" style="width: 35%;">
+                {{ display_minutes }}:{{ display_seconds }}
             </div>
-
-            <div class="grid-row-item">
-                <div class="grid-row-item-label">Seconds / Person</div>
-                <input class="clean ta-right" type="number" v-model.number="secondsPerPerson">
+            <div style="width: 65%;">
+                <div id="speaker">
+                    {{ active_speaker }}
+                </div>
             </div>
-        </div> -->
+        </div>
 
-        <div v-for="(speaker, index) in speakers">
-            {{ index + 1 }} {{ speaker }}
+        <div style="display: flex;">
+            <div style="width: 35%;"></div>
+            <div style="width: 65%;">
+                <div id="speaker">
+                    {{ speakers[active_speaker_index + 1] }}
+                </div>
+            </div>
+        </div>
+
+        <div style="display: flex;">
+            <div style="width: 35%;"></div>
+            <div style="width: 65%;">
+                <div id="speaker">
+                    {{ speakers[active_speaker_index + 2] }}
+                </div>
+            </div>
         </div>
 
     </div>
