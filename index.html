@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Talk Timer</title>
+
+    <link href="app.css" rel="stylesheet">
+    <script src="vue.js"></script>
+    <script src="app.js" defer></script>
+</head>
+
+<body class="dark">
+    <div id="app">
+
+        {{ timer }}
+
+        <!-- <div class="grid-row three">
+            <div class="grid-row-item">
+                <div class="grid-row-item-label">Add Person</div>
+                <input class="clean ta-right" type="text" @keyup.enter="addSpeaker" v-model.text="newSpeaker">
+            </div>
+
+            <div class="grid-row-item">
+                <div class="grid-row-item-label">Seconds / Person</div>
+                <input class="clean ta-right" type="number" v-model.number="secondsPerPerson">
+            </div>
+        </div> -->
+
+        <div v-for="(speaker, index) in speakers">
+            {{ index + 1 }} {{ speaker }}
+        </div>
+
+    </div>
+</body>
+
+</html>
