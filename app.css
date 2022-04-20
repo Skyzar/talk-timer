@@ -23,6 +23,11 @@ input.clean {
     width: 100%;
 }
 
+.row {
+    display: flex;
+    height: 69px;
+}
+
 
 /* Chrome, Safari, Edge, Opera */
 
@@ -48,7 +53,7 @@ input[type=number].clean {
     min-width: 600px;
     padding: 30px;
     border-radius: 5px;
-    border: 1px solid #EFEFEF;
+    /* border: 1px solid #EFEFEF; */
     margin: auto;
 }
 
@@ -57,7 +62,22 @@ input[type=number].clean {
     padding: 0 20px;
 }
 
-#speaker {
+.speaker {
     font-size: 40px;
     line-height: 69px;
+}
+
+.speaker.inactive.one {
+    font-size: 35px;
+    color: #EFEFEF66;
+}
+
+.speaker.inactive.two {
+    font-size: 30px;
+    color: #EFEFEF33;
+}
+
+.speaker.inactive.three {
+    font-size: 25px;
+    color: #EFEFEF11;
 }
