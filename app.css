@@ -1,7 +1,4 @@
 @import 'dark.css';
-
-/* @import 'light-theme.css'; */
-
 * {
     box-sizing: border-box;
     font-family: sans-serif;
@@ -15,33 +12,8 @@ body {
     background: #121212;
 }
 
-input.clean {
-    outline: none;
-    box-shadow: none;
-    background: none;
-    border: none;
-    width: 100%;
-}
-
-.row {
+.flex {
     display: flex;
-    height: 69px;
-}
-
-
-/* Chrome, Safari, Edge, Opera */
-
-input::-webkit-outer-spin-button.clean,
-input::-webkit-inner-spin-button.clean {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-
-/* Firefox */
-
-input[type=number].clean {
-    -moz-appearance: textfield;
 }
 
 #app {
@@ -49,35 +21,74 @@ input[type=number].clean {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    max-width: 900px;
-    min-width: 600px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    width: 600px;
     padding: 30px;
     border-radius: 5px;
-    /* border: 1px solid #EFEFEF; */
     margin: auto;
 }
 
 #timer {
+    width: 35%;
     font-size: 60px;
     padding: 0 20px;
 }
 
-.speaker {
-    font-size: 40px;
-    line-height: 69px;
+#speaker-list-container {
+    height: 100%;
+    width: 100%;
+    position: relative;
 }
 
-.speaker.inactive.one {
-    font-size: 35px;
+#speaker-list {
+    position: absolute;
+    width: 100%;
+    transition: top 250ms ease-in-out;
+}
+
+.speaker {
+    width: 100%;
+    height: 46px;
+    line-height: 46px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    transition: font-size 250ms ease-in-out, color 250ms ease-in-out;
+}
+
+.speaker.active {
+    width: 100%;
+    font-size: 40px;
+}
+
+.speaker.p1 {
+    font-size: 30px;
     color: #EFEFEF66;
 }
 
-.speaker.inactive.two {
-    font-size: 30px;
+.speaker.p2 {
+    font-size: 25px;
     color: #EFEFEF33;
 }
 
-.speaker.inactive.three {
-    font-size: 25px;
+.speaker.p3 {
+    font-size: 20px;
     color: #EFEFEF11;
+}
+
+.speaker.p4 {
+    font-size: 15px;
+    color: #EFEFEF11;
+}
+
+.speaker.p5 {
+    font-size: 10px;
+    color: #EFEFEF11;
+}
+
+.speaker.p6 {
+    font-size: 10px;
+    color: #EFEFEF00;
 }

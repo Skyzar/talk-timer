@@ -39,6 +39,25 @@ Vue.createApp({
         window.removeEventListener('keydown', this.keydown_handler);
     },
     methods: {
+        get_top() {
+            const px = 98 - (this.active_speaker_index * 46);
+            return `top: ${px}px;`
+        },
+        get_class_name(index) {
+            let diff = index - this.active_speaker_index;
+
+            if (diff > 6)
+                diff = 6
+            if (diff < -6)
+                diff = -6
+
+            if (diff < 0)
+                return `past p${Math.abs(diff)}`;
+            else if (diff > 0)
+                return `future p${diff}`;
+            else
+                return 'active';
+        },
         keydown_handler(e) {
             const key_pressed = e.key;
 
