@@ -1,33 +1,76 @@
 <!DOCTYPE html>
 <html lang="de">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Talk Timer</title>
 
-    <title>Talk Timer</title>
+        <link href="app.css" rel="stylesheet" />
+        <script src="vue.js"></script>
+        <script src="app.js" defer></script>
+    </head>
 
-    <link href="app.css" rel="stylesheet">
-    <script src="vue.js"></script>
-    <script src="app.js" defer></script>
-</head>
-
-<body class="dark">
-    <div id="app">
-
-        <div id="timer">
-            {{ display_minutes }}:{{ display_seconds }}
-        </div>
-        <div id="speaker-list-container">
-            <div id="speaker-list" :style="[get_top()]">
-                <div v-for="(speaker, index) in speakers" class="speaker" :class="[get_class_name(index)]">
-                    {{ speaker }}
+    <body class="dark">
+        <div id="app">
+            <div id="display">
+                <div id="timer">{{ display_minutes }}:{{ display_seconds }}</div>
+                <div id="speaker-list-container">
+                    <div id="speaker-list" :style="[get_top()]">
+                        <div v-for="(speaker, index) in speakers" class="speaker" :class="[get_class_name(index)]">{{ speaker }}</div>
+                    </div>
                 </div>
             </div>
+            <transition name="fade">
+                <div v-if="show_options" id="options">
+                    <div class="options-wrapper">
+                        <div class="options-header">
+                            <div class="header-item input">
+                                <div class="header-item-label">New Speaker</div>
+                                <input type="text" class="clean styled" v-model="new_speaker_name" @keydown.enter="add_speaker" />
+                            </div>
+                            <div class="header-item input">
+                                <div class="header-item-label">sec / Speaker</div>
+                                <input type="number" class="clean styled" v-model.number="seconds_per_speaker" />
+                            </div>
+                            <div class="header-item clickable" @click="toggle_import">{{ show_import ? 'X' : 'Import'}}</div>
+                            <div class="header-item clickable" @click="toggle_export">{{ show_export ? 'X' : 'Export'}}</div>
+                        </div>
+                        <div class="options-content">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="speaker-index">No.</th>
+                                        <th class="speaker-name">Name</th>
+                                        <th class="remove-speaker-button" @click="remove_all_speakers">X</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(speaker, index) in speakers">
+                                        <td class="speaker-index">{{ index + 1}}</td>
+                                        <td class="speaker-name">
+                                            <input type="text" class="clean" :value="speaker" @input="update_speaker($event, index)" />
+                                        </td>
+                                        <td class="remove-speaker-button" @click="remove_speaker(index)">X</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <transition name="fade">
+                                <div v-if="show_import" id="import-wrapper">
+                                    <textarea id="import" v-model="import_speakers_text"></textarea>
+                                    <div id="import-button" class="clickable" @click="import_speakers">Import</div>
+                                </div>
+                            </transition>
+                            <transition name="fade">
+                                <textarea v-if="show_export" id="export-wrapper" class="clickable" @click="select_export($event)">
+                                    {{ export_text }}
+                                </textarea>
+                            </transition>
+                        </div>
+                    </div>
+                </div>
+            </transition>
         </div>
-
-    </div>
-</body>
-
+    </body>
 </html>

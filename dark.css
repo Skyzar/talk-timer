@@ -1,43 +1,30 @@
 body.dark * {
-    color: #EFEFEF;
+    color: #efefef;
 }
 
 body.dark {
     background: #121212;
 }
 
-body.dark #company-order-wrapper {
-    background: #222222;
-}
-
-body.dark .grid-row-item {
+body.dark .header-item {
     border: 2px solid #333333;
 }
 
-body.dark .grid-row-item:focus-within {
-    border-color: #DFF3D2;
+body.dark .header-item:focus-within {
+    border-color: #dff3d2;
 }
 
-body.dark .grid-row-item:focus-within>.grid-row-item-label {
-    color: #DFF3D2;
+body.dark .header-item:focus-within > .header-item-label {
+    color: #dff3d2;
 }
 
-body.dark .grid-row-item-label {
-    color: #DFF3D2;
-    background-color: #222222;
+body.dark .header-item-label {
+    color: #dff3d2;
+    background-color: #121212;
 }
 
-body.dark .grid-row-item.clickable:hover {
-    border-color: #DFF3D2;
-}
-
-body.dark .grid-row-item.clickable:hover>.grid-row-item-label,
-body.dark .grid-row-item.clickable:hover>i {
-    color: #DFF3D2;
-}
-
-body.dark .td-clickable:hover {
-    background-color: #2F3C2F !important;
+body.dark .clickable:hover {
+    border-color: #dff3d2 !important;
 }
 
 body.dark .table {
@@ -45,70 +32,34 @@ body.dark .table {
 }
 
 body.dark .table td:focus-within {
-    background: #2F3C2F !important;
+    background: #2f3c2f !important;
 }
 
-body.dark .table>thead>tr {
+body.dark .table > thead > tr {
     border-bottom: 2px solid #333333;
 }
 
-body.dark .table>thead>tr>th {
-    border-top: 1px solid #333333;
-    border-left: 1px solid #333333;
+body.dark .table > thead > tr > th {
+    color: #dff3d2;
+}
+
+body.dark .table > thead > tr > th:not(:last-child) {
     border-right: 1px solid #333333;
 }
 
-body.dark .table>tbody>tr>td {
-    border: 1px solid #333333;
+body.dark .table > tbody > tr:not(:last-child) > td {
+    border-bottom: 1px solid #333333;
 }
 
-body.dark .table>tbody>tr:nth-child(2n)>td {
+body.dark .table > tbody > tr > td:not(:last-child) {
+    /* border: 1px solid #333333; */
+    border-right: 1px solid #333333;
+}
+
+body.dark .table > tbody > tr:nth-child(2n) > td {
     background: #191919;
 }
 
-body.dark td.delete:hover {
-    background-color: #562626 !important;
-}
-
-body.dark .no-data-info {
-    color: #999999;
-    background-color: #2A2A2A;
-    border-right: 2px solid #333333;
-    border-bottom: 2px solid #333333;
-    border-left: 2px solid #333333;
-}
-
-body.dark .label-cbx input:checked+.checkbox {
-    border-color: #DFF3D2;
-}
-
-body.dark .label-cbx input:checked+.checkbox svg path {
-    fill: #DFF3D2;
-}
-
-body.dark .label-cbx input:checked+.checkbox svg polyline {
-    stroke-dashoffset: 0;
-    stroke: #DFF3D2;
-}
-
-body.dark .label-cbx .checkbox {
-    border: 2px solid #999999;
-}
-
-body.dark .modal-container {
-    border: 1px solid #333333;
-    background-color: #222222;
-}
-
-body.dark .modal-title {
-    border-bottom: 2px solid #333333;
-}
-
-body.dark .shadow-pay-progress {
-    border-color: #DFF3D2;
-    background: #2F3C2F;
-}
-
-body.dark .shadow-pay-progress>.grid-row>.grid-row-item-label {
-    background: #2F3C2F;
+body.dark .remove-speaker-button:hover {
+    color: #db0707;
 }
