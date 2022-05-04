@@ -65,7 +65,7 @@ Vue.createApp({
         export_text() {
             let text = '';
             for(let speaker of this.speakers)
-                text += `${speaker.name},${speaker.tag}\n`;
+                text += `${speaker.name || ''},${speaker.tag || ''}\n`;
             return text;
         },
     },
@@ -130,10 +130,13 @@ Vue.createApp({
             this.speakers = [];
             const values = this.import_speakers_text.split('\n');
 
-            console.log(values);
-
             for (let i = 0; i < values.length; i++){
-                let speaker = values[i].split(',')
+                const value = values[i];
+
+                if(!value.includes(','))
+                    continue;
+
+                let speaker = value.split(',');
                 this.speakers.push({
                     name: speaker[0]?.trim(),
                     tag: speaker[1]?.trim()
