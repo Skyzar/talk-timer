@@ -1,7 +1,34 @@
 Vue.createApp({
     data() {
         return {
-            speakers: ['Speaker 1', 'Speaker 2', 'Speaker 3', 'Speaker 4', 'Speaker 5', 'Speaker 6'],
+            speakers: [
+                {
+                    name: 'Speaker 1',
+                    tag: 'tech',
+                },
+                {
+                    name: 'Speaker 2',
+                    tag: 'tech',
+                },
+                {
+                    name: 'Speaker 3',
+                    tag: 'phy',
+                },
+                {
+                    name: 'Speaker 4',
+                    tag: 'math',
+                },
+                {
+                    name: 'Speaker 5',
+                    tag: 'tech',
+                },
+                {
+                    name: 'Speaker 6',
+                    tag: 'bio',
+                },
+            ],
+            speaker_name_sorting_asc: true,
+            speaker_tag_sorting_asc: true,
             active_speaker: '',
             active_speaker_index: 0,
             running: false,
@@ -29,14 +56,17 @@ Vue.createApp({
         window.removeEventListener('keydown', this.keydown_handler);
     },
     watch: {
-        seconds_per_speaker(new_value, old_value) {
+        seconds_per_speaker(new_value) {
             this.timer = new_value;
             this.update_display();
         },
     },
     computed: {
         export_text() {
-            return this.speakers.join(', \n');
+            let text = '';
+            for(let speaker of this.speakers)
+                text += `${speaker.name},${speaker.tag}\n`;
+            return text;
         },
     },
     methods: {
@@ -64,25 +94,31 @@ Vue.createApp({
 
             const keys = {
                 space: ' ',
+                arrow_up: 'ArrowUp',
+                arrow_down: 'ArrowDown',
                 arrow_left: 'ArrowLeft',
                 arrow_right: 'ArrowRight',
                 escape: 'Escape',
                 o: 'o',
-                v: 'v',
+                e: 'e',
+                i: 'i'
             };
 
             if (key_pressed === keys.space)
                 if (!this.running) this.start_session();
                 else this.pause_session();
-            else if (key_pressed === keys.arrow_left) this.previous_speaker();
-            else if (key_pressed === keys.arrow_right) this.next_speaker();
-            else if (key_pressed === keys.escape) this.end_session();
+            else if (key_pressed === keys.arrow_left || key_pressed === keys.arrow_up) this.previous_speaker();
+            else if (key_pressed === keys.arrow_right || key_pressed === keys.arrow_down) this.next_speaker();
+            else if (key_pressed === keys.escape) this.hide_everything();
             else if (ctrl_pressed && key_pressed === keys.o) {
                 e.preventDefault();
                 this.toggle_options();
-            } else if (false && ctrl_pressed && key_pressed === keys.v) {
+            } else if (ctrl_pressed && key_pressed === keys.i) {
                 e.preventDefault();
-                this.toggle_verbosity();
+                this.show_options ? this.toggle_import() : false;
+            } else if (ctrl_pressed && key_pressed === keys.e) {
+                e.preventDefault();
+                this.show_options ? this.toggle_export() : false;
             }
 
             if (this.verbose) {
@@ -91,17 +127,29 @@ Vue.createApp({
             }
         },
         import_speakers() {
-            this.speakers = this.import_speakers_text
-                .split(',')
-                .filter((element) => element)
-                .map((element) => element.trim());
+            this.speakers = [];
+            const values = this.import_speakers_text.split('\n');
+
+            console.log(values);
+
+            for (let i = 0; i < values.length; i++){
+                let speaker = values[i].split(',')
+                this.speakers.push({
+                    name: speaker[0]?.trim(),
+                    tag: speaker[1]?.trim()
+                });
+            }
+
             this.import_speakers_text = '';
             this.show_import = false;
         },
         add_speaker() {
             if (this.new_speaker_name === '') return;
 
-            this.speakers.push(this.new_speaker_name);
+            this.speakers.push({
+                name: this.new_speaker_name,
+                tag: '',
+            });
             this.new_speaker_name = '';
         },
         update_speaker(event, index) {
@@ -175,11 +223,22 @@ Vue.createApp({
                 this.start_session();
             }
         },
-        switch_mode() {
-            console.log('Mode SWITCHED');
+        sort_speakers_by_name() {
+
+            this.speakers.sort((a, b) => {
+                return this.speaker_name_sorting_asc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
+            });
+            this.speaker_name_sorting_asc = !this.speaker_name_sorting_asc;
+        },
+        sort_speakers_by_tag() {
+            this.speakers.sort((a, b) => {
+                return this.speaker_tag_sorting_asc ? a.tag.localeCompare(b.tag) : b.tag.localeCompare(a.tag);
+            });
+            this.speaker_tag_sorting_asc = !this.speaker_tag_sorting_asc;
         },
         toggle_options() {
             this.pause_session();
+            this.show_options ? this.hide_everything() :
             this.show_options = !this.show_options;
         },
         toggle_import() {
@@ -193,6 +252,11 @@ Vue.createApp({
         toggle_verbosity() {
             this.verbose = !this.verbose;
         },
+        hide_everything() {
+            this.show_options = false;
+            this.show_import = false;
+            this.show_export = false;
+        }
     },
 }).mount('#app');
 

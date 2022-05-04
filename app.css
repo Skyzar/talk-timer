@@ -33,9 +33,17 @@ body {
 }
 
 #timer {
+    position: relative;
     width: 35%;
     font-size: 60px;
     padding: 0 20px;
+}
+
+#timer-info {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -20px;
 }
 
 #speaker-list-container {
@@ -137,7 +145,11 @@ body {
 
 .speaker-name {
     text-align: left;
-    width: 425px;
+    width: 350px;
+}
+
+.speaker-tag {
+    width: 80px;
 }
 
 .remove-speaker-button {
@@ -177,6 +189,7 @@ input[type='number'].clean {
     table-layout: fixed;
     border-collapse: collapse;
     border-radius: 3px;
+    height: 100%;
 }
 
 .table td,
@@ -206,13 +219,20 @@ input[type='number'].clean {
 }
 
 .header-item {
-    width: calc(25% - 10px);
     text-align: center;
     padding: 9px;
     background: transparent;
     border-radius: 3px;
     position: relative;
     transition: border-color 150ms ease-in-out;
+}
+
+.header-item.input {
+    width: 120px;
+}
+
+.header-item.clickable {
+    width: 70px;
 }
 
 .header-item-label {
@@ -249,7 +269,6 @@ input[type='number'].clean {
     font-family: monospace !important;
     white-space: pre-line;
     word-wrap: break-word;
-    font-family: inherit;
 }
 
 #import {

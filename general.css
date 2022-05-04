@@ -1,7 +1,13 @@
 .clickable {
     transition: border-color 150ms ease-in-out;
+    cursor: pointer;
 }
 
-.clickable:hover {
+th.sortable {
     cursor: pointer;
+    transition: background-color 150ms ease-in-out;
+}
+
+th.sortable:hover {
+    background-color: #434f36;
 }
