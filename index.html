@@ -21,9 +21,14 @@
                     </div>
                     {{ display_minutes }}:{{ display_seconds }}
                 </div>
+                <div id="tag-list-container">
+                    <div id="tag-list" :style="[get_top()]">
+                        <div v-for="(speaker, index) in speakers" class="speaker-row tag" :class="[get_class_name(index)]">{{ speaker.tag }}</div>
+                    </div>
+                </div>
                 <div id="speaker-list-container">
                     <div id="speaker-list" :style="[get_top()]">
-                        <div v-for="(speaker, index) in speakers" class="speaker" :class="[get_class_name(index)]">{{ speaker.name }}</div>
+                        <div v-for="(speaker, index) in speakers" class="speaker-row name" :class="[get_class_name(index)]">{{ speaker.name }}</div>
                     </div>
                 </div>
             </div>

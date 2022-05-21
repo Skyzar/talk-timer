@@ -26,7 +26,7 @@ body {
     height: 300px;
     display: flex;
     align-items: center;
-    width: 600px;
+    /*width: 800px;*/
     padding: 30px;
     border-radius: 5px;
     margin: auto;
@@ -34,9 +34,10 @@ body {
 
 #timer {
     position: relative;
-    width: 35%;
-    font-size: 60px;
+    /*width: 35%;*/
+    font-size: 75px;
     padding: 0 20px;
+    text-align: center;
 }
 
 #timer-info {
@@ -47,18 +48,24 @@ body {
 }
 
 #speaker-list-container {
-    height: 100%;
-    width: 100%;
     position: relative;
+    height: 100%;
+    width: 200px;
 }
 
-#speaker-list {
+#tag-list-container {
+    position: relative;
+    height: 100%;
+    width: 150px;
+    padding: 0 10px;
+}
+
+#speaker-list, #tag-list {
     position: absolute;
-    width: 100%;
     transition: top 250ms ease-in-out;
 }
 
-.speaker {
+.speaker-row {
     width: 100%;
     height: 46px;
     line-height: 46px;
@@ -68,37 +75,42 @@ body {
     transition: font-size 250ms ease-in-out, color 250ms ease-in-out;
 }
 
-.speaker.active {
+.speaker-row.tag {
+    width: 100%;
+    overflow: hidden;
+}
+
+.speaker-row.active, .tag.active {
     width: 100%;
     font-size: 40px;
 }
 
-.speaker.p1 {
+.speaker-row.p1 {
     font-size: 30px;
     color: #efefef66;
 }
 
-.speaker.p2 {
+.speaker-row.p2 {
     font-size: 25px;
     color: #efefef33;
 }
 
-.speaker.p3 {
+.speaker-row.p3 {
     font-size: 20px;
     color: #efefef11;
 }
 
-.speaker.p4 {
+.speaker-row.p4 {
     font-size: 15px;
     color: #efefef11;
 }
 
-.speaker.p5 {
+.speaker-row.p5 {
     font-size: 10px;
     color: #efefef11;
 }
 
-.speaker.p6 {
+.speaker-row.p6 {
     font-size: 10px;
     color: #efefef00;
 }
